@@ -3,3 +3,6 @@
     <p class="text-light py-1">Simple Service - Delibery</p>
   </div>
 </template>
+<style>
+
+</style>
