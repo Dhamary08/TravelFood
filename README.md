@@ -1,4 +1,7 @@
-# car
+# Proyecto Final
+# Valeria Manríquez Aravena
+
+# Travel Food 
 
 ## Project setup
 ```

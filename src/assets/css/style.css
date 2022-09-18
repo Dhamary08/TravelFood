@@ -1,0 +1,11 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+    background-color: rgb(241, 245, 255);
+}
+.bg-sidebar{
+  background-color: #def6fa;
+}
