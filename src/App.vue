@@ -13,9 +13,7 @@
           <div v-if="activeViewName === 'products'" class="mt-5">
             <my-products></my-products>
           </div>
-          <div v-if="activeViewName === 'shoppingCart'" class="mt-5">
-            <shopping-cart></shopping-cart>
-          </div>
+
         </main>
       </div>
     </div>
@@ -24,10 +22,9 @@
 </template>
 <script>
 import HeaderNav from './components/layout/Header-nav.vue';
-import LoginUsers from './components/registro/LoginUsers.vue';
-import RegisterUsers from './components/registro/RegisterUsers.vue';
-import MyProducts from './components/home/MyProducts.vue';
-import ShoppingCart from './components/home/ShoppingCart.vue';
+import LoginUsers from './components/views/registro/LoginUsers.vue';
+import RegisterUsers from './components/views/registro/RegisterUsers.vue';
+import MyProducts from './components/views/products/MyProducts.vue';
 import FooterNav from './components/layout/FooterNav.vue';
 
 export default {
@@ -36,7 +33,6 @@ export default {
     LoginUsers,
     RegisterUsers,
     MyProducts,
-    ShoppingCart,
     FooterNav,
   },
   data() {

@@ -6,12 +6,8 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="#" active @click="view('products')">
-            <b-icon icon="person-circle" aria-hidden="true"></b-icon>
+            <b-icon icon="shop" aria-hidden="true"></b-icon>
             Productos
-          </b-nav-item>
-          <b-nav-item href="#" active @click="view('shoppingCart')">
-            <b-icon icon="person-circle" aria-hidden="true"></b-icon>
-            Carro de Compra
           </b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
