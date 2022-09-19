@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container-fluid row">
+    <div class="row">
       <div class="col-9">
         <div class="row">
           <div v-for="(item, index) in cardList" :key="index" class="col-3">
@@ -43,41 +43,6 @@ export default {
           img: 'https://casadiromavlc.com/wp-content/uploads/2020/01/shutterstock_247682437-adaptada-1080x675.png',
           imgAlt: 'Spagetti al pesto',
           text: 'Rica espagetti con salsa pesto casera',
-          value: '8650',
-        },
-        {
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
-          value: '8650',
-        },
-        {
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
-          value: '8650',
-        },
-        {
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
-          value: '8650',
-        },
-        {
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
-          value: '8650',
-        },
-        {
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
           value: '8650',
         },
         {
