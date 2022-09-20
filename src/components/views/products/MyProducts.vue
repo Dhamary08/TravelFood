@@ -4,7 +4,12 @@
       <div class="col-9">
         <div class="row">
           <div v-for="(item, index) in cardList" :key="index" class="col-3">
-            <principal-card :card="item" @add-cart="addCart" :ref="`card${index}`" />
+            <principal-card
+              :card="item"
+              :ref="`card${index}`"
+              @add-cart="addCart"
+              @delete-cart="deleteCart"
+            />
           </div>
         </div>
       </div>
@@ -13,7 +18,7 @@
           class="position-fixed"
           :itemSelectList="cartShopping"
           :finalValue="finalValue"
-          @delete-product="deleteProduct"
+          @delete-product-all="deleteProductAll"
         />
       </div>
     </div>
@@ -36,6 +41,7 @@ export default {
           imgAlt: 'Lasagna',
           text: 'Rica lasagna casera',
           value: 9600,
+          /* limited:'', */
         },
         {
           id: '2',
@@ -44,6 +50,7 @@ export default {
           imgAlt: 'Ensalada cesar',
           text: 'Rica ensalada cesar casera',
           value: 6900,
+          /* limited:'', */
         },
         {
           id: '3',
@@ -52,6 +59,7 @@ export default {
           imgAlt: 'Spagetti al pesto',
           text: 'Rica espagetti con salsa pesto casera',
           value: 8650,
+          /* limited:'', */
         },
         {
           id: '4',
@@ -60,6 +68,7 @@ export default {
           imgAlt: 'canelones',
           text: 'Rica canelones con salsa bolognesa casera',
           value: 8650,
+          /* limited:'', */
         },
       ],
       cartShopping: [],
@@ -92,12 +101,19 @@ export default {
         });
       }
     },
-    deleteProduct() {
+    deleteProductAll() {
       this.cartShopping = [];
       this.cardList.forEach((_, index) => {
         const value = `card${index}`;
         this.$refs[value][0].deleteSelect();
       });
+    },
+    deleteCart(id) {
+      const deleteProduct = this.cartShopping.some((element) => element.id === id);
+      if (deleteProduct) {
+        this.cartShopping = this.cartShopping.filter((element) => element.id !== id);
+      }
+      console.log('lista', this.cartShopping);
     },
   },
   computed: {

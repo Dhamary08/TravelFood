@@ -46,6 +46,7 @@ export default {
     },
     deleteSelect() {
       this.valueProduct = 0;
+      this.$emit('delete-cart', this.card.id);
     },
   },
 };
