@@ -3,7 +3,9 @@
     <p class="text-center bold">Detalle de compra</p>
     <table-simple :productList="itemSelectList" :fields="fieldsList" />
     <b-button href="#" variant="primary" block>Pagar {{ finalValue }}</b-button>
-    <b-button href="#" variant="secundary" block>Reiniciar pedido</b-button>
+    <b-button href="#" variant="secundary" block @click="deleteProduct"
+      >Reiniciar pedido</b-button
+    >
   </div>
 </template>
 
@@ -22,6 +24,11 @@ export default {
         { key: 'delete', label: '' },
       ],
     };
+  },
+  methods: {
+    deleteProduct() {
+      this.$emit('delete-product');
+    },
   },
 };
 </script>

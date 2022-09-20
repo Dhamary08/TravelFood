@@ -4,7 +4,7 @@
       <div class="col-9">
         <div class="row">
           <div v-for="(item, index) in cardList" :key="index" class="col-3">
-            <principal-card :card="item" @add-cart="addCart" />
+            <principal-card :card="item" @add-cart="addCart" :ref="`card${index}`" />
           </div>
         </div>
       </div>
@@ -13,6 +13,7 @@
           class="position-fixed"
           :itemSelectList="cartShopping"
           :finalValue="finalValue"
+          @delete-product="deleteProduct"
         />
       </div>
     </div>
@@ -90,6 +91,13 @@ export default {
           delete: '',
         });
       }
+    },
+    deleteProduct() {
+      this.cartShopping = [];
+      this.cardList.forEach((_, index) => {
+        const value = `card${index}`;
+        this.$refs[value][0].deleteSelect();
+      });
     },
   },
   computed: {
