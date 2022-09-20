@@ -42,6 +42,7 @@ export default {
   methods: {
     countProduct() {
       this.valueProduct += 1;
+      this.$emit('add-cart', this.card.id, this.valueProduct);
     },
     deleteSelect() {
       this.valueProduct = 0;
