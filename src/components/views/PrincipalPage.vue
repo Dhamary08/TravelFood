@@ -1,3 +1,5 @@
 <template>
-  <div>principals</div>
+  <div>
+    <h3 class="text-center">Página Principal</h3>
+  </div>
 </template>

@@ -16,7 +16,9 @@
         <h4 class="bold">${{ card.value }}</h4>
       </b-card-text>
       <div class="d-flex justify-content-center align-items-center">
-        <b-button href="#" variant="link">Detalle</b-button>
+        <b-button href="#" variant="link" @click="$emit('modal-detail', card.id)"
+          >Detalle</b-button
+        >
       </div>
       <template #footer>
         <div class="d-flex justify-content-between">
@@ -48,6 +50,7 @@ export default {
       this.valueProduct = 0;
       this.$emit('delete-cart', this.card.id);
     },
+    openModalDetail() {},
   },
 };
 </script>

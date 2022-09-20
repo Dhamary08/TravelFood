@@ -9,6 +9,7 @@
               :ref="`card${index}`"
               @add-cart="addCart"
               @delete-cart="deleteCart"
+              @modal-detail="modalDetail"
             />
           </div>
         </div>
@@ -22,15 +23,26 @@
         />
       </div>
     </div>
+    <b-modal
+      v-model="openModalDetail"
+      scrollable
+      hide-footer
+      headerClass="p-2 border-bottom-0"
+      class="pa-0"
+      centered
+    >
+      <details-product :detailModal="detailModal" />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import PrincipalCard from '../../card/PrincipalCard.vue';
+import DetailsProduct from './modals/DetailsProduct.vue';
 import DetailsShopping from './modals/DetailsShopping.vue';
 
 export default {
-  components: { PrincipalCard, DetailsShopping },
+  components: { PrincipalCard, DetailsShopping, DetailsProduct },
   data() {
     return {
       cardList: [
@@ -41,7 +53,10 @@ export default {
           imgAlt: 'Lasagna',
           text: 'Rica lasagna casera',
           value: 9600,
-          /* limited:'', */
+          calification: 3,
+          principalIngredients: ['salsa boloñesa', 'carne', 'pastas', 'salsa bechamel'],
+          popular: '4.4',
+          /* stock:'', */
         },
         {
           id: '2',
@@ -50,7 +65,10 @@ export default {
           imgAlt: 'Ensalada cesar',
           text: 'Rica ensalada cesar casera',
           value: 6900,
-          /* limited:'', */
+          calification: 5,
+          principalIngredients: ['lechuga', 'pollo', 'salsa cesar', 'queso parmesano'],
+          popular: '3.2',
+          /* stock:'', */
         },
         {
           id: '3',
@@ -59,7 +77,10 @@ export default {
           imgAlt: 'Spagetti al pesto',
           text: 'Rica espagetti con salsa pesto casera',
           value: 8650,
-          /* limited:'', */
+          calification: 4,
+          principalIngredients: ['carne', 'pastas', 'salsa pesto', 'albahaca'],
+          popular: '5.3',
+          /* stock:'', */
         },
         {
           id: '4',
@@ -68,10 +89,15 @@ export default {
           imgAlt: 'canelones',
           text: 'Rica canelones con salsa bolognesa casera',
           value: 8650,
-          /* limited:'', */
+          calification: 5,
+          principalIngredients: ['salsa boloñesa', 'carne', 'pastas', 'salsa bechamel'],
+          popular: '5.1',
+          /* stock:'', */
         },
       ],
       cartShopping: [],
+      openModalDetail: false,
+      detailModal: {},
     };
   },
   methods: {
@@ -114,6 +140,10 @@ export default {
         this.cartShopping = this.cartShopping.filter((element) => element.id !== id);
       }
       console.log('lista', this.cartShopping);
+    },
+    modalDetail(id) {
+      this.detailModal = this.cardList.find((element) => element.id === id);
+      this.openModalDetail = true;
     },
   },
   computed: {
