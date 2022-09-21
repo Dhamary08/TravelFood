@@ -139,7 +139,6 @@ export default {
       if (deleteProduct) {
         this.cartShopping = this.cartShopping.filter((element) => element.id !== id);
       }
-      console.log('lista', this.cartShopping);
     },
     modalDetail(id) {
       this.detailModal = this.cardList.find((element) => element.id === id);

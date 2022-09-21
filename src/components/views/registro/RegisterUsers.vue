@@ -1,88 +1,95 @@
 <template>
-  <div class="form-register">
-    <b-form class="bg-register">
-      <b-form-group id="input-group-1" label="Correo Electrónico:" label-for="input-1">
+  <div class="form-login">
+    <b-form class="bg-login">
+      <h2 class="text-center">Registro</h2>
+      <b-input-group prepend="💪" class="mb-2 mr-sm-2 mb-sm-0 my-4">
+        <b-form-input type="text" id="username" placeholder="Ingrese su usuario" />
+      </b-input-group>
+      <b-input-group prepend="📧" class="mb-2 mr-sm-2 mb-sm-0 my-4">
         <b-form-input
-          id="input-1"
-          v-model="form.email"
           type="email"
-          placeholder="example@mail.com"
-          required
+          id="email"
+          placeholder="Ingrese su correo"
+          v-model="email"
+          :state="validationEmail"
         />
-      </b-form-group>
-
-      <b-form-group id="input-2" label="Ingresa tu nombre:" label-for="input-2">
+      </b-input-group>
+      <b-form-invalid-feedback :state="validationEmail" v-if="email !== ''">
+        example@mail.com
+      </b-form-invalid-feedback>
+      <b-input-group prepend="🔒" class="mb-2 mr-sm-2 mb-sm-0 my-4">
         <b-form-input
-          id="input-2"
-          v-model="form.name"
-          required
-          placeholder="Nombre y Apellido"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group id="input-3" label="Ingresa tu contraseña:" label-for="input-3">
+          type="password"
+          id="password"
+          placeholder="Ingrese su contraseña"
+          v-model="password"
+          :state="validationPassword"
+        />
+      </b-input-group>
+      <b-form-invalid-feedback :state="validationPassword" v-if="password !== ''">
+        Recuerda que la contraseña tiene que tener entre 5 a 12 caracteres.
+      </b-form-invalid-feedback>
+      <b-input-group prepend="🔒" class="mb-2 mr-sm-2 mb-sm-0 my-4">
         <b-form-input
-          id="input-3"
-          v-model="form.key"
-          required
-          placeholder="Ingresa tu contraseña"
-        ></b-form-input>
-      </b-form-group>
+          type="password"
+          id="repitPassword"
+          placeholder="Repita contraseña"
+          v-model="repitPassword"
+          :state="validationRepetPassword"
+        />
+      </b-input-group>
+      <b-form-invalid-feedback
+        :state="validationRepetPassword"
+        v-if="repitPassword !== ''"
+      >
+        Recuerda que las contraseñas tienen que iguales.
+      </b-form-invalid-feedback>
       <div class="d-flex justify-content-between">
-        <b-button type="reset" variant="secundary">
-          <b-icon-backspace></b-icon-backspace>
-          Salir
-        </b-button>
-        <b-button type="submit" variant="primary">Enviar</b-button>
+        <b-button variant="link" class="mt-3 text-light"
+          >Retroceder</b-button
+        >
+        <b-button variant="primary" class="mt-3">Guardar</b-button>
       </div>
     </b-form>
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
-      form: {
-        email: '',
-        name: '',
-        key: '',
-        checked: [],
-      },
-      show: true,
+      password: '',
+      repitPassword: '',
+      email: '',
+      username: '',
     };
   },
-  methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
+  computed: {
+    validationPassword() {
+      return this.password.length > 4 && this.password.length < 13;
     },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = '';
-      this.form.name = '';
-      this.form.key = '';
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+    validationRepetPassword() {
+      return this.password === this.repitPassword && this.repitPassword !== '';
+    },
+    validationEmail() {
+      return this.email.includes('@') && this.email !== '';
     },
   },
 };
 </script>
 <style scoped>
-.form-register {
+.form-login {
   width: 100%;
-  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.bg-register {
+.bg-login {
   padding: 3rem;
   background-color: #8fd485;
   border-radius: 1rem;
+}
+p {
+  padding: 0;
+  margin: 0;
 }
 </style>

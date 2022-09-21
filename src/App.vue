@@ -47,7 +47,6 @@ export default {
   methods: {
     changeActiveViews(data) {
       this.activeViewName = data;
-      console.log(this.activeViewName);
     },
   },
 };
