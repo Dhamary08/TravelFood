@@ -3,8 +3,17 @@
     <b-form class="bg-login">
       <h2 class="text-center">Registro</h2>
       <b-input-group prepend="💪" class="mb-2 mr-sm-2 mb-sm-0 my-4">
-        <b-form-input type="text" id="username" placeholder="Ingrese su usuario" />
+        <b-form-input
+          type="text"
+          id="username"
+          placeholder="Ingrese su usuario"
+          v-model="username"
+          :state="validationName"
+        />
       </b-input-group>
+      <b-form-invalid-feedback :state="validationName" v-if="username !== ''">
+        Recuerda sólo letras
+      </b-form-invalid-feedback>
       <b-input-group prepend="📧" class="mb-2 mr-sm-2 mb-sm-0 my-4">
         <b-form-input
           type="email"
@@ -45,10 +54,7 @@
         Recuerda que las contraseñas tienen que iguales.
       </b-form-invalid-feedback>
       <div class="d-flex justify-content-between">
-        <b-button variant="link" class="mt-3 text-light"
-          >Retroceder</b-button
-        >
-        <b-button variant="primary" class="mt-3">Guardar</b-button>
+        <b-button variant="primary" class="mt-3" block>Guardar</b-button>
       </div>
     </b-form>
   </div>
@@ -61,6 +67,7 @@ export default {
       repitPassword: '',
       email: '',
       username: '',
+      name: '',
     };
   },
   computed: {
@@ -70,8 +77,16 @@ export default {
     validationRepetPassword() {
       return this.password === this.repitPassword && this.repitPassword !== '';
     },
+    validationName() {
+      let response = false;
+      if (/^[a-zA-Z ñÑáéíóúÁÉÍÓÚ]*$/.test(this.username) && this.username.length <= 15) {
+        response = true;
+      }
+      console.log(response);
+      return response;
+    },
     validationEmail() {
-      return this.email.includes('@') && this.email !== '';
+      return this.email.includes('@') && this.email !== '' && this.email.includes('.com');
     },
   },
 };

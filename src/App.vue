@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <header-nav @open-view="changeActiveViews" />
     <div class="container-fluid">
       <div class="row">
@@ -24,11 +24,11 @@
 </template>
 <script>
 import HeaderNav from './components/layout/Header-nav.vue';
-import LoginUsers from './components/views/registro/LoginUsers.vue';
-import RegisterUsers from './components/views/registro/RegisterUsers.vue';
-import MyProducts from './components/views/products/MyProducts.vue';
+import LoginUsers from './views/registro/LoginUsers.vue';
+import RegisterUsers from './views/registro/RegisterUsers.vue';
+import MyProducts from './views/products/MyProducts.vue';
 import FooterNav from './components/layout/FooterNav.vue';
-import PrincipalPage from './components/views/PrincipalPage.vue';
+import PrincipalPage from './views/PrincipalPage.vue';
 
 export default {
   components: {

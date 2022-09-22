@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import PrincipalCard from '../../card/PrincipalCard.vue';
+import PrincipalCard from '../../components/card/PrincipalCard.vue';
 import DetailsProduct from './modals/DetailsProduct.vue';
 import DetailsShopping from './modals/DetailsShopping.vue';
 

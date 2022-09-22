@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import TableSimple from '../../../table/TableSimple.vue';
+import TableSimple from '../../../components/table/TableSimple.vue';
 
 export default {
   props: { itemSelectList: Array, finalValue: String },

@@ -7,14 +7,25 @@
         id="email"
         placeholder="Ingrese su correo"
         class="my-3"
+        :state="validationEmail"
       />
+      <b-form-invalid-feedback :state="validationEmail" v-if="email !== ''">
+        example@mail.com
+      </b-form-invalid-feedback>
+      <b-form-valid-feedback :state="validationEmail">
+        Looks Good.
+      </b-form-valid-feedback>
       <b-form-input
         type="password"
         id="password"
         placeholder="Ingrese su contraseña"
         class="my-3"
         v-model="password"
+        :state="validationPassword"
       />
+      <b-form-invalid-feedback :state="validationPassword" v-if="password !== ''">
+        example@mail.com
+      </b-form-invalid-feedback>
       <b-button variant="primary" class="mt-3" @click="sentLogin">Guardar</b-button>
     </b-form>
   </div>
@@ -38,6 +49,14 @@ export default {
           autoHideDelay: 5000,
         });
       }
+    },
+  },
+  computed: {
+    validationEmail() {
+      return this.email.includes('@') && this.email !== '' && this.email.includes('.com');
+    },
+    validationPassword() {
+      return this.password.length > 4 && this.password.length < 13;
     },
   },
 };
