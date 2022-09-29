@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <div class="row">
       <div class="col-9">
         <div class="row">
@@ -45,62 +45,36 @@ export default {
   components: { PrincipalCard, DetailsShopping, DetailsProduct },
   data() {
     return {
-      cardList: [
-        {
-          id: '1',
-          title: 'Lasagna',
-          img: 'https://tipsparatuviaje.com/wp-content/uploads/2020/03/lasana-comida.jpg',
-          imgAlt: 'Lasagna',
-          text: 'Rica lasagna casera',
-          value: 9600,
-          calification: 3,
-          principalIngredients: ['salsa boloñesa', 'carne', 'pastas', 'salsa bechamel'],
-          popular: '4.4',
-          /* stock:'', */
-        },
-        {
-          id: '2',
-          title: 'Ensalada César',
-          img: 'https://www.cocinacaserayfacil.net/wp-content/uploads/2018/07/Salsa-cesar-receta-600x338.jpg',
-          imgAlt: 'Ensalada cesar',
-          text: 'Rica ensalada cesar casera',
-          value: 6900,
-          calification: 5,
-          principalIngredients: ['lechuga', 'pollo', 'salsa cesar', 'queso parmesano'],
-          popular: '3.2',
-          /* stock:'', */
-        },
-        {
-          id: '3',
-          title: 'Spagetti Pesto',
-          img: 'https://casadiromavlc.com/wp-content/uploads/2020/01/shutterstock_247682437-adaptada-1080x675.png',
-          imgAlt: 'Spagetti al pesto',
-          text: 'Rica espagetti con salsa pesto casera',
-          value: 8650,
-          calification: 4,
-          principalIngredients: ['carne', 'pastas', 'salsa pesto', 'albahaca'],
-          popular: '5.3',
-          /* stock:'', */
-        },
-        {
-          id: '4',
-          title: 'Canelones',
-          img: 'https://i.ytimg.com/vi/PHsXi21VjFE/maxresdefault.jpg',
-          imgAlt: 'canelones',
-          text: 'Rica canelones con salsa bolognesa casera',
-          value: 8650,
-          calification: 5,
-          principalIngredients: ['salsa boloñesa', 'carne', 'pastas', 'salsa bechamel'],
-          popular: '5.1',
-          /* stock:'', */
-        },
-      ],
+      cardList: [],
       cartShopping: [],
       openModalDetail: false,
       detailModal: {},
+      urlProduct: 'https://633398bc573c03ab0b5f72a5.mockapi.io/products',
     };
   },
   methods: {
+    async getProducts() {
+      await this.axios
+        .get(this.urlProduct)
+        .then((response) => {
+          console.log(response.data);
+          this.cardList = response.data;
+        })
+        .catch((error) => {
+          console.log(`${error}`);
+        });
+    },
+    /* metodo fetch
+    fetch(this.urlProduct)
+        .then((response) => response.json())
+        .then((data) => {
+          this.cardList = data;
+        })
+        .catch((error) => console.log(`${error}`))
+        .finally(() => {
+          console.log('Finalizo con éxito');
+        })
+   */
     addCart(id, quantity) {
       const findProduct = this.cartShopping.some((element) => element.id === id);
       if (findProduct) {
@@ -153,6 +127,9 @@ export default {
       });
       return `$ ${summaryValueProducts}`;
     },
+  },
+  created() {
+    this.getProducts();
   },
 };
 </script>

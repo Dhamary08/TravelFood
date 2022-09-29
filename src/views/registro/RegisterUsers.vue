@@ -54,7 +54,9 @@
         Recuerda que las contraseñas tienen que iguales.
       </b-form-invalid-feedback>
       <div class="d-flex justify-content-between">
-        <b-button variant="primary" class="mt-3" block>Guardar</b-button>
+        <b-button variant="primary" class="mt-3" block @click="sentNewUsers">
+          Guardar
+        </b-button>
       </div>
     </b-form>
   </div>
@@ -68,7 +70,44 @@ export default {
       email: '',
       username: '',
       name: '',
+      urlSentUsers: 'https://633398bc573c03ab0b5f72a5.mockapi.io/register',
     };
+  },
+  methods: {
+    async sentNewUsers() {
+      await this.axios
+        .post(this.urlSentUsers, {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          username: this.username,
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(`${error}`);
+        });
+    },
+    /* FETCH POST
+    const sent = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          username: this.username,
+        }),
+      };
+      await fetch(this.urlSentUsers, sent)
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+        .catch((error) => console.log(error));
+    },
+    */
   },
   computed: {
     validationPassword() {
