@@ -1,28 +1,30 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-9">
-        <div class="row">
-          <div v-for="(item, index) in cardList" :key="index" class="col-3">
-            <principal-card
-              :card="item"
-              :ref="`card${index}`"
-              @add-cart="addCart"
-              @delete-cart="deleteCart"
-              @modal-detail="modalDetail"
-            />
+  <div class="container-fluid mt-4">
+    <b-skeleton-wrapper :loading="loading">
+      <div class="row">
+        <div class="col-9">
+          <div class="row">
+            <div v-for="(item, index) in cardList" :key="index" class="col-3">
+              <principal-card
+                :card="item"
+                :ref="`card${index}`"
+                @add-cart="addAndDelete"
+                @delete-cart="addAndDelete"
+                @modal-detail="modalDetail"
+              />
+            </div>
           </div>
         </div>
+        <div class="col-3 bg-white py-5">
+          <details-shopping
+            class="position-fixed"
+            :itemSelectList="cartShopping"
+            :finalValue="finalValue"
+            @delete-product-all="deleteProductAll"
+          />
+        </div>
       </div>
-      <div class="col-3 bg-white py-5">
-        <details-shopping
-          class="position-fixed"
-          :itemSelectList="cartShopping"
-          :finalValue="finalValue"
-          @delete-product-all="deleteProductAll"
-        />
-      </div>
-    </div>
+    </b-skeleton-wrapper>
     <b-modal
       v-model="openModalDetail"
       scrollable
@@ -50,10 +52,12 @@ export default {
       openModalDetail: false,
       detailModal: {},
       urlProduct: 'https://633398bc573c03ab0b5f72a5.mockapi.io/products',
+      loading: false,
     };
   },
   methods: {
     async getProducts() {
+      this.loading = true;
       await this.axios
         .get(this.urlProduct)
         .then((response) => {
@@ -63,6 +67,7 @@ export default {
         .catch((error) => {
           console.log(`${error}`);
         });
+      this.loading = false;
     },
     /* metodo fetch
     fetch(this.urlProduct)
@@ -75,9 +80,11 @@ export default {
           console.log('Finalizo con éxito');
         })
    */
-    addCart(id, quantity) {
+    addAndDelete(id, quantity) {
       const findProduct = this.cartShopping.some((element) => element.id === id);
-      if (findProduct) {
+      if (quantity === 0) {
+        this.cartShopping = this.cartShopping.filter((element) => element.id !== id);
+      } else if (findProduct) {
         this.cartShopping = this.cartShopping.map((element) => {
           if (id === element.id) {
             const item = { ...element };
@@ -105,14 +112,8 @@ export default {
       this.cartShopping = [];
       this.cardList.forEach((_, index) => {
         const value = `card${index}`;
-        this.$refs[value][0].deleteSelect();
+        this.$refs[value][0].deleteSelectAll();
       });
-    },
-    deleteCart(id) {
-      const deleteProduct = this.cartShopping.some((element) => element.id === id);
-      if (deleteProduct) {
-        this.cartShopping = this.cartShopping.filter((element) => element.id !== id);
-      }
     },
     modalDetail(id) {
       this.detailModal = this.cardList.find((element) => element.id === id);

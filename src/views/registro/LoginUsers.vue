@@ -1,5 +1,5 @@
 <template>
-  <div class="form-login">
+  <div class="form-login mt-5">
     <b-form class="bg-login">
       <h2 class="text-center">Ingreso</h2>
       <b-form-input

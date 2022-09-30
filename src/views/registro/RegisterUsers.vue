@@ -1,5 +1,5 @@
 <template>
-  <div class="form-login">
+  <div class="form-login mt-5">
     <b-form class="bg-login">
       <h2 class="text-center">Registro</h2>
       <b-input-group prepend="💪" class="mb-2 mr-sm-2 mb-sm-0 my-4">

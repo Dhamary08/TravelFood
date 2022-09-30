@@ -3,9 +3,17 @@
   box-sizing: border-box;
 }
 
-body{
-    background-color: rgb(241, 245, 255);
+body {
+  background-color: rgb(241, 245, 255);
 }
-.bg-sidebar{
+.bg-sidebar {
   background-color: #def6fa;
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    max-width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
