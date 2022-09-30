@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+import VueForm from 'vue-form';
 import VueAxios from 'vue-axios';
 import axios from 'axios';
 import router from './router';
@@ -14,6 +15,8 @@ import './assets/css/style.css';
 Vue.use(BootstrapVue);
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin);
+// Use Vue Form
+Vue.use(VueForm);
 // Axios
 Vue.use(VueAxios, axios);
 
