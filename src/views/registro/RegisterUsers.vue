@@ -1,12 +1,12 @@
 <template>
   <div class="fcc my-5">
-    <h3 class="mb-4 text-center">Registro</h3>
     <vue-form :state="formState" @submit="submit()" class="d-flex">
       <b-container>
         <b-row align-h="center">
           <b-col class="bg-info form-container" cols="4">
             <b-row align-h="center" class="p-5">
               <b-col cols="12" class="d-row">
+                <h3 class="mb-4 text-center text-light">Registro</h3>
                 <!-- NOMBRE COMPLETO -->
                 <validate tag="label" :custom="{ validator: fullNameValidator }">
                   <div class="input-group mb-3">

@@ -1,33 +1,75 @@
 <template>
   <div class="form-login mt-5">
-    <b-form class="bg-login">
-      <h2 class="text-center">Ingreso</h2>
-      <b-form-input
-        type="email"
-        id="email"
-        placeholder="Ingrese su correo"
-        class="my-3"
-        :state="validationEmail"
-      />
-      <b-form-invalid-feedback :state="validationEmail" v-if="email !== ''">
-        example@mail.com
-      </b-form-invalid-feedback>
-      <b-form-valid-feedback :state="validationEmail">
-        Looks Good.
-      </b-form-valid-feedback>
-      <b-form-input
-        type="password"
-        id="password"
-        placeholder="Ingrese su contraseña"
-        class="my-3"
-        v-model="password"
-        :state="validationPassword"
-      />
-      <b-form-invalid-feedback :state="validationPassword" v-if="password !== ''">
-        example@mail.com
-      </b-form-invalid-feedback>
-      <b-button variant="primary" class="mt-3" @click="sentLogin">Guardar</b-button>
-    </b-form>
+    <vue-form :state="formState" @submit.prevent="submit()" class="d-flex">
+      <b-container>
+        <b-row align-h="center">
+          <b-col class="bg-info form-container" cols="5">
+            <b-row align-h="center" class="p-5">
+              <b-col cols="12" class="d-row">
+                <h3 class="mb-4 text-center text-light">Ingreso</h3>
+              </b-col>
+              <b-col cols="12">
+                <validate tag="label" :custom="{ validator: mailValidator }">
+                  <div class="input-group mb-3">
+                    <label for="email" class="d-flex flex-column text-left text-light">
+                      Correo Electrónico
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <b-icon-envelope />
+                        </span>
+                        <input
+                          type="email"
+                          v-model="email"
+                          name="email"
+                          class="form-control"
+                          required
+                        />
+                      </div>
+                    </label>
+                    <field-messages>
+                      <div slot="validator" class="small text-light bg-dark rounded px-2">
+                        El correo es obligatorio example@mail.com
+                      </div>
+                    </field-messages>
+                  </div>
+                </validate>
+              </b-col>
+              <b-col cols="12">
+                <validate tag="label" :custom="{ validator: passwordValidator }">
+                  <div class="input-group mb-3">
+                    <label for="password" class="d-flex flex-column text-left text-light">
+                      Contraseña
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                          <b-icon-shield-lock />
+                        </span>
+                        <input
+                          type="password"
+                          v-model="password"
+                          class="form-control"
+                          name="password"
+                          required
+                        />
+                      </div>
+                    </label>
+                    <field-messages>
+                      <div class="small text-success bg-dark rounded px-2">Correcto</div>
+                      <div slot="validator" class="small text-light bg-dark rounded px-2">
+                        La Contraseña tienen que ser mayor a 8 caracteres y contener
+                        números
+                      </div>
+                    </field-messages>
+                  </div>
+                </validate>
+              </b-col>
+              <b-col cols="12">
+                <button class="btn btn-primary my-3" block type="submit">Enviar</button>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-container>
+    </vue-form>
   </div>
 </template>
 <script>
@@ -36,11 +78,40 @@ export default {
     return {
       password: '',
       email: '',
+      userList: [],
+      URLRegister: 'https://633398bc573c03ab0b5f72a5.mockapi.io/register',
+      URLlogin: 'https://633398bc573c03ab0b5f72a5.mockapi.io/login',
+      formState: {},
     };
   },
   methods: {
-    sentLogin() {
-      if (this.password === '' || this.email === '') {
+    async getPersonRegister() {
+      await this.axios
+        .get(this.URLRegister)
+        .then((response) => {
+          console.log(response.data);
+          this.userList = response.data;
+        })
+        .catch((error) => {
+          console.log(`${error}`);
+        });
+    },
+    async postPersonRegister() {
+      await this.axios
+        .post(this.URLlogin, {
+          email: this.email,
+          password: this.password,
+          dataEnter: new Date(),
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(`${error}`);
+        });
+    },
+    submit() {
+      if (this.formState.$invalid) {
         this.$bvToast.toast('Recuerde ingresar sus credenciales', {
           title: 'Importante',
           variant: 'warning',
@@ -48,15 +119,32 @@ export default {
           solid: true,
           autoHideDelay: 5000,
         });
+      } else {
+        this.$bvToast.toast('Formulario enviado con éxito', {
+          title: 'Mensaje',
+          autoHideDelay: 5000,
+          variant: 'success',
+        });
+        this.getPersonRegister();
+        this.postPersonRegister();
+        this.password = '';
+        this.email = '';
       }
     },
-  },
-  computed: {
-    validationEmail() {
-      return this.email.includes('@') && this.email !== '' && this.email.includes('.com');
+    passwordValidator: (value) => {
+      let response = false;
+      if (/[0-9]/g.test(value) && value.length > 8) {
+        response = true;
+      }
+      return response;
     },
-    validationPassword() {
-      return this.password.length > 4 && this.password.length < 13;
+
+    mailValidator: (value) => {
+      let response = false;
+      if (value.includes('@') && value.includes('.com')) {
+        response = true;
+      }
+      return response;
     },
   },
 };

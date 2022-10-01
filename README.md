@@ -1,30 +1,18 @@
 # Proyecto Final
 # Valeria Manríquez Aravena
 
-# Travel Food 
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 ### Deploy Netlify
 https://coderapp-travelfood.netlify.app/
+
+## APIS
+## Product
+
+https://633398bc573c03ab0b5f72a5.mockapi.io/products
+
+## Registro
+
+https://633398bc573c03ab0b5f72a5.mockapi.io/register
+
+## Login
+
+https://633398bc573c03ab0b5f72a5.mockapi.io/login
