@@ -23,7 +23,7 @@
                           name="email"
                           class="form-control"
                           required
-                          placeholder="admin"
+                          placeholder="admin@admin.com"
                         />
                       </div>
                     </label>
