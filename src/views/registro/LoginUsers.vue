@@ -83,7 +83,6 @@ export default {
       password: '',
       email: '',
       userList: [],
-      URLRegister: 'https://633398bc573c03ab0b5f72a5.mockapi.io/register',
       URLlogin: 'https://633398bc573c03ab0b5f72a5.mockapi.io/login',
       formState: {},
     };
@@ -91,7 +90,7 @@ export default {
   methods: {
     ...mapActions('users', ['actionsUsers']),
     async getPersonRegister() {
-      this.userList = this.actionsUsers();
+      this.userList = await this.actionsUsers();
     },
     async postPersonRegister() {
       await this.axios
@@ -119,7 +118,6 @@ export default {
       } else if (this.formState.$valid) {
         await this.postPersonRegister();
         await this.getPersonRegister();
-
         this.$bvToast.toast('Formulario enviado con éxito', {
           title: 'Mensaje',
           autoHideDelay: 5000,

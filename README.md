@@ -2,7 +2,7 @@
 # Valeria Manríquez Aravena
 
 ### Notas de avance
-- :curly_loop: Aplicando Vuex con login
+- :curly_loop: Aplicando Vuex en el login
 
 ### Deploy Netlify
 https://coderapp-travelfood.netlify.app/

@@ -243,6 +243,8 @@ export default {
           email: this.model.email,
           password: this.model.password,
           username: this.model.nickname,
+          userAdmin: false,
+          userClient: true,
         })
         .then((response) => {
           console.log(response.data);
