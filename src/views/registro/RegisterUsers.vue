@@ -211,14 +211,6 @@ export default {
       }
       return response;
     },
-    /*  passwordRepetValidator: (value) => {
-      let response = false;
-      const pass = this.model.password;
-      if (value === pass) {
-        response = true;
-      }
-      return response;
-    }, */
     mailValidator: (value) => {
       let response = false;
       if (value.includes('@') && value.includes('.com')) {

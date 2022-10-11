@@ -23,6 +23,7 @@
                           name="email"
                           class="form-control"
                           required
+                          placeholder="admin"
                         />
                       </div>
                     </label>
@@ -48,6 +49,7 @@
                           v-model="password"
                           class="form-control"
                           name="password"
+                          placeholder="123123123"
                           required
                         />
                       </div>
@@ -73,6 +75,8 @@
   </div>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -85,16 +89,9 @@ export default {
     };
   },
   methods: {
+    ...mapActions('users', ['actionsUsers']),
     async getPersonRegister() {
-      await this.axios
-        .get(this.URLRegister)
-        .then((response) => {
-          console.log(response.data);
-          this.userList = response.data;
-        })
-        .catch((error) => {
-          console.log(`${error}`);
-        });
+      this.userList = this.actionsUsers();
     },
     async postPersonRegister() {
       await this.axios
@@ -110,7 +107,7 @@ export default {
           console.log(`${error}`);
         });
     },
-    submit() {
+    async submit() {
       if (this.formState.$invalid) {
         this.$bvToast.toast('Recuerde ingresar sus credenciales', {
           title: 'Importante',
@@ -119,14 +116,15 @@ export default {
           solid: true,
           autoHideDelay: 5000,
         });
-      } else {
+      } else if (this.formState.$valid) {
+        await this.postPersonRegister();
+        await this.getPersonRegister();
+
         this.$bvToast.toast('Formulario enviado con éxito', {
           title: 'Mensaje',
           autoHideDelay: 5000,
           variant: 'success',
         });
-        this.getPersonRegister();
-        this.postPersonRegister();
         this.password = '';
         this.email = '';
       }
@@ -138,7 +136,6 @@ export default {
       }
       return response;
     },
-
     mailValidator: (value) => {
       let response = false;
       if (value.includes('@') && value.includes('.com')) {
@@ -146,6 +143,9 @@ export default {
       }
       return response;
     },
+  },
+  computed: {
+    ...mapState('users', ['users', 'logged']),
   },
 };
 </script>

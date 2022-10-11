@@ -1,13 +1,15 @@
 export default {
   state: {
     logged: {
-      email: 'admin@admin.com',
-      name: 'admin',
+      email: '',
       password: 'admin123',
-      admin: true,
+      userAdmin: true,
+      userClient: false,
       id: '1',
     },
   },
+  mutations: {},
+  actions: {},
   getters: {
     getUser(state) {
       return state.logged;
@@ -16,6 +18,4 @@ export default {
       return state.logged.admin;
     },
   },
-  mutations: {},
-  actions: {},
 };
