@@ -1,8 +1,8 @@
 # Proyecto Final
 # Valeria Manríquez Aravena
 
-##
-Aplicando vuex con login
+### Notas de avance
+- :curly_loop: Aplicando Vuex con login
 
 ### Deploy Netlify
 https://coderapp-travelfood.netlify.app/
